@@ -35,8 +35,8 @@ namespace Domain.Entites
         public int id { get; set; }
 
         public float? TotalFactureMandat { get; set; }
-
-        public int? contractype { get; set; }
+        [StringLength(255)]
+        public string contractype { get; set; }
 
         [StringLength(255)]
         public string firstname { get; set; }
@@ -60,10 +60,10 @@ namespace Domain.Entites
         [StringLength(255)]
         public string sector { get; set; }
 
-        [StringLength(255)]
-        public string seniority { get; set; }
+        public int? seniority { get; set; }
 
-        public int? state { get; set; }
+        [StringLength(255)]
+        public string state { get; set; }
 
         [StringLength(255)]
         public string name { get; set; }

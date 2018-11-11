@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Web.Models.ResourceViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<html>
+<table class="table">
+    <tr class="thead-dark">
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Contract Type</th>
+        <th scope="col">Profil</th>
+    </tr>
+    @foreach (var p in ViewBag.result)
+            {
+        <tr>
+           <th>@p.id</th>
+            <th>@p.lastname</th>
+            <th>@p.contractype</th>
+            <th>@p.profil</th>
+            <th>@p.seniority</th>
+            <th> <input type="submit" value="Archiver" class="btn btn-default" /></th>
+        </tr>
+    }
+</table>
+
+</html>
+

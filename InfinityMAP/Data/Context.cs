@@ -207,9 +207,7 @@ namespace Data
                 .Property(e => e.sector)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<resource>()
-                .Property(e => e.seniority)
-                .IsUnicode(false);
+            
 
             modelBuilder.Entity<resource>()
                 .Property(e => e.name)
