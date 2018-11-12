@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MAPINFINITY2.Areas.admin2.Controllers
+namespace Web.Areas.admin2.Controllers
 {
     public class DashboardController : Controller
     {

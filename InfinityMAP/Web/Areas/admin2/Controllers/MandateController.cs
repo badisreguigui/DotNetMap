@@ -1,6 +1,6 @@
 ﻿
 using Domain.Entites;
-using MAPINFINITY2.Areas.admin2.Models;
+
 using Newtonsoft.Json;
 using SERVICE;
 using System;
@@ -11,8 +11,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
+using Web.Areas.admin2.Models;
 
-namespace MAPINFINITY2.Areas.admin2.Controllers
+namespace Web.Areas.admin2.Controllers
 {
     public class MandateController : Controller
     {
@@ -149,9 +150,10 @@ namespace MAPINFINITY2.Areas.admin2.Controllers
 
         public ActionResult Edit(int id)
         {
-            mandate m = new mandate();
-            MandatService.Add(m);
-            return View();
+            MandateViewModel m3 = new MandateViewModel();
+            m3.MandateId = id;
+
+            return View(m3);
 
         }
 

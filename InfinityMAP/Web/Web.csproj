@@ -274,14 +274,14 @@
     <Content Include="Areas\admin2\Views\web.config" />
     <Content Include="Areas\admin2\Views\Shared\_Layoutadmin2.cshtml" />
     <Content Include="Areas\admin2\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\admin2\Views\Mandate\calculFactureMandat.cshtml" />
-    <Content Include="Areas\admin2\Views\Mandate\Edit.cshtml" />
-    <Content Include="Areas\admin2\Views\Mandate\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="css\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="css\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\admin2\Views\Mandate\Index.cshtml" />
+    <Content Include="Areas\admin2\Views\Mandate\calculFactureMandat.cshtml" />
+    <Content Include="Areas\admin2\Views\Mandate\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

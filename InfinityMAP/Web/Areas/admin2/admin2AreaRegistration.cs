@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MAPINFINITY2.Areas.admin2
+namespace Web.Areas.admin2
 {
     public class admin2AreaRegistration : AreaRegistration 
     {

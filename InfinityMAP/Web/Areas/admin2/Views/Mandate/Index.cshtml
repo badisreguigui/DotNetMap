@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MAPINFINITY2.Areas.admin2.Models.MandateViewModel>
+﻿@model IEnumerable<Web.Areas.admin2.Models.MandateViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,24 +6,24 @@
 }
 
 <h2>Index</h2>
-@using (Html.BeginForm())
-{
- <table class="table">
-        <tr>
-            <td>
-                <div> Date debut Mandat: @Html.TextBox("dateDebutMandat")    Date fin Mandat: @Html.TextBox("dateFinMandat")    nom Mandat: @Html.TextBox("nomMandat")</div>
-            </td>
-            <td><input type="submit" value="search" id="submit" /></td>
-        </tr>
-    </table>
-}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        
-        
+        <th>
+            @Html.DisplayNameFor(model => model.MandateId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historique_HistoriqueId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.request_requestId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resource_id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Facture)
         </th>
@@ -41,7 +41,18 @@
 
 @foreach (var item in Model) {
     <tr>
-       
+        <td>
+            @Html.DisplayFor(modelItem => item.MandateId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.historique_HistoriqueId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.request_requestId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resource_id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Facture)
         </td>
@@ -55,8 +66,8 @@
             @Html.DisplayFor(modelItem => item.date_start_mandate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit","Mandate", new { id = @item.MandateId }, new { @area = "admin2" })
-            @Html.ActionLink("TotalFacture", "calculFactureMandat", "Mandate", new { mandateId = @item.MandateId },new {@area="admin2"})
+            @Html.ActionLink("Edit", "Edit","Mandate", new {id=@item.MandateId }, new { @area = "admin2" }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
