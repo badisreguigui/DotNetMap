@@ -18,10 +18,10 @@ namespace Domain.Entites
         public string NomMandat { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? date_end_mandate { get; set; }
+        public DateTime date_end_mandate { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? date_start_mandate { get; set; }
+        public DateTime date_start_mandate { get; set; }
 
         public int? historique_HistoriqueId { get; set; }
 

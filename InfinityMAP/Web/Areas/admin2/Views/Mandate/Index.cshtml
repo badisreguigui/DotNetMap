@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MAPINFINITY2.Areas.admin2.Models.MandateViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{
+ <table class="table">
+        <tr>
+            <td>
+                <div> Date debut Mandat: @Html.TextBox("dateDebutMandat")    Date fin Mandat: @Html.TextBox("dateFinMandat")    nom Mandat: @Html.TextBox("nomMandat")</div>
+            </td>
+            <td><input type="submit" value="search" id="submit" /></td>
+        </tr>
+    </table>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Facture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomMandat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_end_mandate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_start_mandate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Facture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomMandat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_end_mandate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_start_mandate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit","Mandate", new { id = @item.MandateId }, new { @area = "admin2" })
+            @Html.ActionLink("TotalFacture", "calculFactureMandat", "Mandate", new { mandateId = @item.MandateId },new {@area="admin2"})
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
