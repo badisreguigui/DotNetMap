@@ -150,8 +150,31 @@ namespace Web.Areas.admin2.Controllers
 
         public ActionResult Edit(int id)
         {
+            List<MandateViewModel> liste = new List<MandateViewModel>();
+
+
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/mandate/ListeMandats").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var listeMandat = response.Content.ReadAsAsync<IEnumerable<mandate>>().Result;
+                foreach (var i in listeMandat)
+                {
+                    MandateViewModel userView = new MandateViewModel();
+                    userView.Facture = i.Facture;
+                    userView.MandateId = i.MandateId;
+                    userView.NomMandat = i.NomMandat;
+                    userView.date_end_mandate = i.date_end_mandate;
+                    userView.date_start_mandate = i.date_start_mandate;
+                    liste.Add(userView);
+                }
+
+            }
+         
             MandateViewModel m3 = new MandateViewModel();
-            m3.MandateId = id;
+           m3 = liste.Find(x => x.MandateId==id);
 
             return View(m3);
 
