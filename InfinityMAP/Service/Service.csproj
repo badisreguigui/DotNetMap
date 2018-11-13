@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="ClientService.cs" />
+    <Compile Include="IClientService.cs" />
     <Compile Include="IMandateService.cs" />
     <Compile Include="IResourceService.cs" />
     <Compile Include="IUserService.cs" />

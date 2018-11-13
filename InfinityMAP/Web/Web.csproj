@@ -183,8 +183,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\admin2\admin2AreaRegistration.cs" />
+    <Compile Include="Areas\admin2\Controllers\ClientController.cs" />
     <Compile Include="Areas\admin2\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin2\Controllers\MandateController.cs" />
+    <Compile Include="Areas\admin2\Models\ClientViewModel.cs" />
     <Compile Include="Areas\admin2\Models\HistoriqueAssignationMandatViewModel.cs" />
     <Compile Include="Areas\admin2\Models\MandateViewModel.cs" />
     <Compile Include="Areas\admin2\Models\ResourceRequestViewModel.cs" />
@@ -282,6 +284,11 @@
     <Content Include="Areas\admin2\Views\Mandate\Index.cshtml" />
     <Content Include="Areas\admin2\Views\Mandate\calculFactureMandat.cshtml" />
     <Content Include="Areas\admin2\Views\Mandate\Edit.cshtml" />
+    <Content Include="Areas\admin2\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\admin2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin2\Views\Client\Index.cshtml" />
+    <Content Include="Areas\admin2\Views\Client\Delete.cshtml" />
+    <Content Include="Areas\admin2\Views\Client\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
