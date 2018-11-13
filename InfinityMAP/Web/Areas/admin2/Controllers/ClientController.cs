@@ -45,7 +45,23 @@ namespace Web.Areas.admin2.Controllers
         // GET: admin2/Client/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ClientViewModel clientV = new ClientViewModel();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:18080");
+            client.DefaultRequestHeaders.Accept
+            .Add(new MediaTypeWithQualityHeaderValue("Application/json"));
+            HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ClientService/findclById/" + id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                clientV = response.Content.ReadAsAsync<ClientViewModel>().Result;
+
+            }
+            else
+            {
+                ViewBag.result = "error";
+            }
+            return View(clientV);
         }
 
         // GET: admin2/Client/Create
@@ -78,21 +94,51 @@ namespace Web.Areas.admin2.Controllers
         {
             return View();
         }
+        //find client by id
+        [HttpGet]
+        public ActionResult FindByID(int id)
+        {
+            ClientViewModel clientV = new ClientViewModel();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:18080");
+            client.DefaultRequestHeaders.Accept
+            .Add(new MediaTypeWithQualityHeaderValue("Application/json"));
+            HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ClientService/findclById/" + id).Result;
+            
+            if (response.IsSuccessStatusCode)
+            {
+                clientV = response.Content.ReadAsAsync<ClientViewModel>().Result;
+                HttpResponseMessage response1 = client
+                 .PutAsJsonAsync("InfinityMAP-web/rest/ClientService/modifierClient/" + id, clientV).Result;
+
+
+            }
+            else
+            {
+                ViewBag.result = "error";
+            }
+            return View(clientV);
+        }
 
         // POST: admin2/Client/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ClientViewModel cl)
         {
-            try
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:18080");
+            HttpResponseMessage response = client
+                .PutAsJsonAsync("InfinityMAP-web/rest/ClientService/modifierClient/" + id, cl).Result;
+            if (response.IsSuccessStatusCode)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                // Get the URI of the created resource.  
+                Console.WriteLine(response.Headers.Location);
+                Console.WriteLine("modifie");
             }
-            catch
+            else
             {
-                return View();
+                ViewBag.Edit = "error";
             }
+            return RedirectToAction("index");
         }
 
         // GET: admin2/Client/Delete/5

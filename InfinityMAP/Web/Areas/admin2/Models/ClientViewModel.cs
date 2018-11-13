@@ -18,8 +18,6 @@ namespace Web.Areas.admin2.Models
         [StringLength(255)]
         public string etat { get; set; }
 
-        
-
         [StringLength(255)]
         public string logo { get; set; }
 
