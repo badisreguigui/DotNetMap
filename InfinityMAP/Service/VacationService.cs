@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-   public  class ResourceService : Service<resource>, IResourceService
+    public class VacationService : Service<vacation>, IVacationService
     {
         private static IDatabaseFactory dbf = new DatabaseFactory();
         private static IUnitOfWork utOfWork = new UnitOfWork(dbf);
-        public ResourceService():base(utOfWork)
+        public VacationService():base(utOfWork)
         {
 
         }

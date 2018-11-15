@@ -199,7 +199,9 @@
     </Compile>
     <Compile Include="Models\ResourceRequestViewModel.cs" />
     <Compile Include="Models\ResourceViewModel.cs" />
+    <Compile Include="Models\ResourceViewModelDetails.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\vacationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +221,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\aziza.jpg" />
+    <Content Include="Image\canin.jpg" />
+    <Content Include="Image\cross.gif" />
+    <Content Include="Image\rose.jpg" />
     <Content Include="js\bootstrap-4.js" />
     <Content Include="js\bootstrap-4.min.js" />
     <Content Include="js\bootstrap.js" />
@@ -326,6 +332,12 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Resource\Index.cshtml" />
     <Content Include="Views\Resource\Create.cshtml" />
+    <Content Include="Views\Resource\Calendar.cshtml" />
+    <Content Include="Views\Resource\Delete.cshtml" />
+    <Content Include="Views\Resource\Details.cshtml" />
+    <Content Include="Views\Resource\DetailsResource.cshtml" />
+    <Content Include="Views\Resource\Edit.cshtml" />
+    <Content Include="Views\Resource\Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
