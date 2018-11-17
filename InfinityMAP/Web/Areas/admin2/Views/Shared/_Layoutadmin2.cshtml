@@ -593,6 +593,8 @@
     <!--jQuery [ REQUIRED ]-->
 
     @Scripts.Render("~/bundles/admin/js")
+    @RenderSection("scripts", required: false)
+
     @*<script src="js/jquery-2.1.1.min.js"></script>*@
     <!--BootstrapJS [ RECOMMENDED ]-->
     @*<script src="js/bootstrap.min.js"></script>*@
@@ -643,6 +645,7 @@
         <!--Form Wizard [ SAMPLE ]-->
         <script src="js/demo/form-wizard.js"></script>
         <script src="js/demo/dashboard-v2.js"></script>*@
+
 
 
 </body>

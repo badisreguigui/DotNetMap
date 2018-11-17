@@ -12,18 +12,7 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MandateId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.historique_HistoriqueId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.request_requestId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.resource_id)
-        </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.Facture)
         </th>
@@ -41,18 +30,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MandateId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.historique_HistoriqueId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.request_requestId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.resource_id)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.Facture)
         </td>

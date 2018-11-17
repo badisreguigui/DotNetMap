@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public interface IResourceService : IService<resource>
+    public interface IVacationService : IService<vacation>
     {
+
     }
 }

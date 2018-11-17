@@ -2,27 +2,33 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
 }
 
 <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 <html>
 <table class="table">
     <tr class="thead-dark">
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
-        <th scope="col">Contract Type</th>
-        <th scope="col">Profil</th>
+        <th scope="col">Picture</th>
     </tr>
     @foreach (var p in ViewBag.result)
             {
         <tr>
-           <th>@p.id</th>
+           <th>@p.firstname</th>
             <th>@p.lastname</th>
-            <th>@p.contractype</th>
-            <th>@p.profil</th>
-            <th>@p.seniority</th>
-            <th> <input type="submit" value="Archiver" class="btn btn-default" /></th>
+            
+            <th><img src="~/Image/@Url.Content(@p.picture)" width="50" height="50" /></th>
+            <th>@Html.ActionLink("Edit", "Edit", new { id = p.id }) |
+            @Html.ActionLink("Details", "Details", new { id = p.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = p.id })</th>
+            
         </tr>
     }
 </table>

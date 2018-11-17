@@ -84,9 +84,7 @@ namespace Data
                 .Property(e => e.etat)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<client>()
-                .Property(e => e.ipAdress)
-                .IsUnicode(false);
+           
 
             modelBuilder.Entity<client>()
                 .Property(e => e.logo)
@@ -101,10 +99,10 @@ namespace Data
                 .WithOptional(e => e.client)
                 .HasForeignKey(e => e.client_id);
 
-            modelBuilder.Entity<client>()
+            /*modelBuilder.Entity<client>()
                 .HasMany(e => e.resourcerequests)
                 .WithOptional(e => e.client)
-                .HasForeignKey(e => e.client_id);
+                .HasForeignKey(e => e.client_id);*/
 
             modelBuilder.Entity<client>()
               .HasMany(e => e.user)

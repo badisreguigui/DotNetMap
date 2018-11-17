@@ -12,10 +12,12 @@ namespace Domain.Entites
         public int id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? dateDebut { get; set; }
+        public DateTime? dateStart { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? dateFin { get; set; }
+        public DateTime? dateEnd { get; set; }
+
+        public int? duree { get; set; }
 
         public int? resource_id { get; set; }
 

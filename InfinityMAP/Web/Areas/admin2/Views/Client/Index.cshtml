@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Web.Areas.admin2.Models.ClientViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.categorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.typeClient)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.categorie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.logo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.typeClient)
+        </td>
+        <td>
+            @Html.ActionLink("Eddd", "Eddd", new { id=item.id }, new { @area = "admin2" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }, new { @area = "admin2" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id },new { @area = "admin2" })
+
+        </td>
+    </tr>
+}
+
+</table>
