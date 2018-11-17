@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Tests List";
+    //Layout = "~/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+<h2>Tests List</h2>
+<input id="searchInput" placeholder="Search a Test..." class="form-control" onkeydown="searchTest(this)" /><br />
+<select style="float: right;" onchange="loadTests()" id="category">
+    <option value="Technique">Technique</option>
+    <option value="Francais">Francais</option>
+</select>
+<div id="oldTests">
+@if (ViewBag.tests != null)
+{
+    foreach (var test in ViewBag.tests)
+    {
+        <div id="oldTest@(test.id)">
+            <hr />
+            <p><b>Name of the test: </b>@test.nom </p>
+            <p>Category: @test.category</p>
+            <p>
+                Difficulty level:
+            </p>
+            <p>Number of questions: </p>
+            <p>Estimated time of completion: </p>
+            <br>
+            <input type="button" value="Passer le Test" class="btn btn-default" onclick="passerTest(@(test.id))"/>
+            <input type="button" value="Ajouter Question" class="btn btn-default" onclick="addQuestionElement(this, @test.id)"/>
+        </div>
+    }
+}
+else
+{
+    <p>No Tests available in this category</p>
+}
+</div>
+<hr />
+<h2><a onclick="addElement()">Add a test</a></h2>
+<div id="newTests">
+    <label id="label0"><b>Name of the test:</b> </label>
+    <input id="0" placeholder="Test Name" class="form-control" onkeydown ="titleChange(this.id)" /><br />
+    <input type="button" value="Confirm" class="btn btn-default" name="0" onclick="addTest(this.name)" />
+    <input type="button" value="Cancel" class="btn btn-default" name="0" onclick="cancel(this.name)" />
+
+</div>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+    function titleChange(id) {
+        var title = document.getElementById(id).value;
+        document.getElementById('label' + id).innerHTML = "<b>Name of the test:</b> " + title;
+    }
+    var i = 0;
+    function addElement() {
+        i++;
+        var inp = document.createElement("div");
+        inp.innerHTML = '<hr><label id="label' + i + '"><b>Name of the test:</b></label><input id="' + i + '" placeholder="Test Name" class="form-control" onkeydown="titleChange(this.id)" />';
+        document.getElementById('newTests').appendChild(inp);
+    }
+
+    function addTest(id) {
+        var name = document.getElementById(id).value;
+        var urlEdit = '@Html.Raw(@Url.Action("addTest", "Test", new { name = "nom" }))';
+        urlEdit = urlEdit.replace("nom", name)
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                var test = document.createElement("div");
+                test.innerHTML = '<hr><p><b>Name of the test:</b> ' + d.nom + '</p><p>Category: ' + d.category + '</p><p>Difficulty level: </p><p>Number of questions: </p><p>Estimated time of completion: </p><br><input type="button" value="Passer le Test" class="btn btn-default" id="' + d.id + '" /> ';
+                document.getElementById('oldTests').appendChild(test); // id="'+d.id+'"
+            }
+        });
+    }
+    function cancel(id) {
+        document.getElementById(id).value = "";
+        document.getElementById('label' + id).innerHTML = "<b>Name of the test:</b> ";
+    }
+
+    function loadTests() {
+        document.getElementById('oldTests').innerHTML = "<p>Loading...</p>";
+        var category = document.getElementById('category').value;
+        var urlEdit = '@Html.Raw(@Url.Action("loadTests", "Test", new { category = "nom" }))';
+        urlEdit = urlEdit.replace("nom", category)
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                document.getElementById('oldTests').innerHTML = "";
+                for (var i = 0; i < d.length ; i++) {
+                    var test = document.createElement("div");
+                    test.innerHTML = '<div id="oldTest'+d[i].id+'"><hr><p><b>Name of the test:</b> ' + d[i].nom + '</p><p>Category: ' + d[i].category + '</p><p>Difficulty level: </p><p>Number of questions: </p><p>Estimated time of completion: </p><br><input type="button" value="Passer le Test" class="btn btn-default" id="' + d[i].id + '" /><input type="button" value="Ajouter Question" class="btn btn-default" onclick="addQuestionElement(this, '+d[i].id+')"/></div>';
+                    document.getElementById('oldTests').appendChild(test);
+                }
+                if (d.length == 0) {
+                    document.getElementById('oldTests').innerHTML = "No result found...";
+                }
+            }
+        });
+    }
+    var j = 0;
+    function addQuestionElement(bouton, id) {
+        var parent = bouton.parentNode;
+        j++;
+        var inp = document.createElement("div");
+        inp.style = "margin-left: 150px;";
+        inp.innerHTML = '<br><p>Question ' + j + ': </p><input id="question' + j + '" placeholder="Question..." class="form-control" />'
+        + '<br><input id="answer' + j + '" placeholder="Answer..." class="form-control" /><br>'
+        + '<input type="button" value="Add Question" class="btn btn-default" onclick="addQuestion('+id+')"/>';
+        parent.appendChild(inp);
+    }
+
+    function addQuestion(testId) {
+        var parentDiv = document.getElementById('oldTest' + testId);
+        for (var index = 1; index <= j; index++) {
+            var questionElement = document.getElementById('question' + index);
+            var question = questionElement.value;
+            var answer = document.getElementById('answer' + index).value;
+            if ((question != null)&&(answer != null)){
+                var urlEdit = '@Html.Raw(@Url.Action("addQuestion", "Test", new { testId = "idd", question = "questionn", answer = "answerr" }))';
+                urlEdit = urlEdit.replace("idd", testId);
+                urlEdit = urlEdit.replace("questionn", question);
+                urlEdit = urlEdit.replace("answerr", answer);
+                questionElement.parentNode.innerHTML = "";
+                $.ajax({
+                    method: 'POST',
+                    url: urlEdit,
+                    ifModified: true,
+                    success: function (d) {
+                        var inp = document.createElement("div");
+                        inp.innerHTML = '<br><div style="margin-left: 150px"><p><b>Question: </b>' + d.question + '</p><p>answer: ' + d.answer + '</p></div>';
+                        parentDiv.appendChild(inp);
+                       // questionElement.parentNode.innerHTML += '<p><b>Question: </b>' + d.question + '</p><p>answer: ' + d.answer + '</p>';
+
+                    }
+                });
+            }
+        }
+    }
+
+    function searchTest(input) {
+        var searchString = input.value;
+        var urlEdit = '@Html.Raw(@Url.Action("searchTest", "Test", new { search = "nom" }))';
+        urlEdit = urlEdit.replace("nom", searchString);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                document.getElementById('oldTests').innerHTML = "";
+                for (var i = 0; i < d.length ; i++) {
+                    var test = document.createElement("div");
+                    test.innerHTML = '<div id="oldTest' + d[i].id + '"><hr><p><b>Name of the test:</b> ' + d[i].nom + '</p><p>Category: ' + d[i].category + '</p><p>Difficulty level: </p><p>Number of questions: </p><p>Estimated time of completion: </p><br><input type="button" value="Passer le Test" class="btn btn-default" id="' + d[i].id + '" /><input type="button" value="Ajouter Question" class="btn btn-default" onclick="addQuestionElement(this, ' + d[i].id + ')"/></div>';
+                    document.getElementById('oldTests').appendChild(test);
+                }
+                if (d.length == 0) {
+                    document.getElementById('oldTests').innerHTML = "No result found...";
+                }
+            }
+        });
+    }
+
+    function passerTest(idTest) {
+        var route = '@Html.Raw(@Url.Action("getTest", "Test", new { idTest = "idTestt", nom = "nomm", category = "categoryy" }))';
+        route = route.replace("idTestt", idTest);
+        route = route.replace("nomm", "java");
+        route = route.replace("categoryy", "tech");
+        window.location = route; 
+    }
+
+    
+</script>

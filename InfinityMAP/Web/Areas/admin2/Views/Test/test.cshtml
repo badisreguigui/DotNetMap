@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Passer Test "+ ViewBag.nom;
+   // Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+<a href="@Url.Action("liste", "Test")">Retourner à la liste des Tests</a><br />
+<div>
+    <h2>Test @ViewBag.nom</h2>
+    <p id="timer"></p>
+</div>
+<p style="float:right">Category: @ViewBag.nom</p>
+
+
+<div id="questionPanel">
+    <h3>Question :</h3>
+    <p id="question">Loading ....</p>
+    <label>Your Answer: </label><p id="answer"></p><br />
+    <div id="buttons">
+        <input type="button" id="true" value="True" class="btn btn-default" onclick="repondre1()" />
+        <input type="button" id="false" value="False" class="btn btn-default" onclick="repondre2()"/>
+        <input type="button" value=">>" style="float: right;" class="btn btn-default" onclick="getQuestionElement(0)"/>
+    </div>
+</div>
+
+<script>
+    var listQuestions;
+    window.onload = function () {
+        var urlEdit = '@Html.Raw(@Url.Action("getQuestions", "Test", new { id = "idd" }))';
+        //alert(@(ViewBag.idTest));
+        urlEdit = urlEdit.replace("idd", @ViewBag.idTest);
+        //alert("here");
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                listQuestions = d;
+                getQuestionElement(0);
+                calculerDureeTest(); 
+            }
+        });
+    };
+
+    function getQuestionElement(index){
+        if(index < listQuestions.length){
+            document.getElementById('answer').innerHTML = "";
+
+            var id = listQuestions[index].id;
+            var questionText = listQuestions[index].question;
+            var answer = listQuestions[index].answer;
+            newIndex = index + 1;
+            var buttons = document.getElementById('buttons').innerHTML;
+            buttons = buttons.replace("getQuestionElement("+index+")", "getQuestionElement("+newIndex+")");
+            buttons = buttons.replace("repondre1()", "repondre(this.value,"+id+")");
+            buttons = buttons.replace("repondre2()", "repondre(this.value,"+id+")");
+
+            buttons = '<input type="button" id="true" value="True" class="btn btn-default" onclick="repondre(this.value,'+id+')"/><input type="button" id="false" value="False" class="btn btn-default" onclick="repondre(this.value,'+id+')"/><input type="button" value=">>" style="float: right;" class="btn btn-default" onclick="getQuestionElement('+newIndex+')"/>';
+            document.getElementById('buttons').innerHTML = buttons;
+            document.getElementById("question").innerHTML = questionText;
+        }
+        else{
+            document.getElementById('buttons').innerHTML = '<input type="button" value="Corriger le test !" class="btn btn-default" onclick="corrigerTest()"/>';
+        }
+    }
+
+    function repondre(reponse, questionId){
+        var applicantId = 3; //à changer!!!!
+        var urlEdit = '@Html.Raw(@Url.Action("answerQuestion", "Test", new { applicantId = "appId", questionId = "qId", value = "valuee" }))';
+        urlEdit = urlEdit.replace("valuee", reponse);
+        urlEdit = urlEdit.replace("appId", applicantId);
+        urlEdit = urlEdit.replace("qId", questionId);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                document.getElementById('answer').innerHTML = d;
+
+            }
+        });
+    }
+
+    function corrigerTest(){
+        var applicantId = 3; //à changer!!!!
+        var urlEdit = '@Html.Raw(@Url.Action("corrigerTest", "Test", new { applicantId = "appId", testId = "tId" }))';
+        urlEdit = urlEdit.replace("appId", @ViewBag.idTest);
+        urlEdit = urlEdit.replace("tId", applicantId);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                document.getElementById("questionPanel").innerHTML = d; 
+            }
+        });
+    }
+
+    function calculerDureeTest(){
+        var dureeTotale = listQuestions.length * 10; 
+        var interval = setInterval(function(){
+            if(dureeTotale > 0){
+                dureeTotale--; 
+                var compteur = dureeTotale + "s"; 
+                if(dureeTotale > 60){
+                    var min = convertTo(parseInt(dureeTotale / 60)); 
+                    var seconds = (dureeTotale % 60); 
+                    if(seconds < 10){
+                        seconds = "0"+seconds;
+                    }
+                    compteur = min + " : " + seconds; 
+                }
+                if(dureeTotale < 10){
+                    document.getElementById('timer').style.color = "red"; 
+                }
+                document.getElementById('timer').innerHTML = compteur; }
+            else {
+                document.getElementById('questionPanel').innerHTML = "<h3>TIME'S UP !</h3><input type='button' value='Corriger le test !' class='btn btn-default' onclick='corrigerTest()'/>";
+                clearInterval(interval); 
+            }
+        }
+            , 1000); 
+        
+    }
+
+    function convertTo(value){
+        if(value+"".length <= 2){
+            return "0" + value; 
+        }
+        return value;
+    }
+
+</script>
+

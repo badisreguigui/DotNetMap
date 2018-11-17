@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Mailbox";
+}
+
+<h2>Mailbox</h2>
+<div id="mail">
+    <textarea class="form-control" id="body" onchange="censurerString(this)"></textarea>
+    <input type="button" value="Envoyer Mail" class="btn btn-default" onclick="envoyer()" />
+</div>
+
+<script>
+    function censurerString(element) {
+        var urlEdit = '@Html.Raw(@Url.Action("censurerMail", "ApplicantRequest", new { contenu = "edit" }))';
+        urlEdit = urlEdit.replace("edit", element.value);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                element.value = d; 
+            }
+        });
+    }
+
+    function envoyer() {
+        var body = document.getElementById('body').value;
+        var urlEdit = '@Html.Raw(@Url.Action("EnvoyerMail", "ApplicantRequest", new { contenu = "edit" }))';
+        urlEdit = urlEdit.replace("edit", body);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified: true,
+            success: function (d) {
+                /*if (d == "Success") {
+                    document.getElementById("mail").innerHTML = "Mail envoyé au ministère"; 
+                }*/
+                document.getElementById("mail").innerHTML = d;
+            }
+        });
+    }
+</script>
