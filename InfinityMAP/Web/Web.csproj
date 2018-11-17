@@ -514,6 +514,7 @@
     <Content Include="Areas\admin2\Views\Client\Delete.cshtml" />
     <Content Include="Areas\admin2\Views\Client\Details.cshtml" />
     <Content Include="Areas\admin2\Views\Client\Create.cshtml" />
+    <Content Include="Areas\admin2\Views\Projet\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -553,7 +554,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\admin2\Views\Projet\" />
     <Folder Include="img\" />
     <Folder Include="plugins\animate-css\" />
     <Folder Include="plugins\bootbox\" />

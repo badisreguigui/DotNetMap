@@ -21,12 +21,9 @@ namespace Web.Areas.admin2.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("Application/json"));
             HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ProjetService/afficherAllProjets").Result;
             var listeclients = response.Content.ReadAsAsync<IEnumerable<ProjetViewModel>>().Result;
-            /*var clients = from a in service.GetAll() select a;
-            if (!String.IsNullOrEmpty(SearchString))
-            {*/
+           
             if (!String.IsNullOrEmpty(searchString))
             {
-
                 if (response.IsSuccessStatusCode)
                 {
                     foreach (var i in listeclients)
