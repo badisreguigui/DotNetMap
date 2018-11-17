@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -191,17 +191,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\admin2\admin2AreaRegistration.cs" />
+    <Compile Include="Areas\admin2\Controllers\ApplicantRequestController.cs" />
     <Compile Include="Areas\admin2\Controllers\ClientController.cs" />
     <Compile Include="Areas\admin2\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin2\Controllers\MandateController.cs" />
     <Compile Include="Areas\admin2\Controllers\ProjetController.cs" />
     <Compile Include="Areas\admin2\Controllers\ResourceRequestController.cs" />
+    <Compile Include="Areas\admin2\Controllers\TestController.cs" />
+    <Compile Include="Areas\admin2\Models\ApplicantRequest.cs" />
     <Compile Include="Areas\admin2\Models\ClientViewModel.cs" />
     <Compile Include="Areas\admin2\Models\HistoriqueAssignationMandatViewModel.cs" />
     <Compile Include="Areas\admin2\Models\MandateViewModel.cs" />
     <Compile Include="Areas\admin2\Models\ProjetModelView.cs" />
+    <Compile Include="Areas\admin2\Models\Question.cs" />
     <Compile Include="Areas\admin2\Models\ResourceRequestViewModel.cs" />
     <Compile Include="Areas\admin2\Models\ResourceViewModel.cs" />
+    <Compile Include="Areas\admin2\Models\Test.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -514,17 +519,12 @@
     <Content Include="Areas\admin2\Views\Client\Delete.cshtml" />
     <Content Include="Areas\admin2\Views\Client\Details.cshtml" />
     <Content Include="Areas\admin2\Views\Client\Create.cshtml" />
-
-
     <Content Include="Areas\admin2\Views\Projet\Index.cshtml" />
-
     <Content Include="Areas\admin2\Views\ApplicantRequest\Create.cshtml" />
     <Content Include="Areas\admin2\Views\ApplicantRequest\liste.cshtml" />
     <Content Include="Areas\admin2\Views\ApplicantRequest\Mailbox.cshtml" />
     <Content Include="Areas\admin2\Views\Test\liste.cshtml" />
     <Content Include="Areas\admin2\Views\Test\test.cshtml" />
-
-
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -688,5 +688,4 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-
 </Project>
