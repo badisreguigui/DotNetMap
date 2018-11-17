@@ -16,6 +16,7 @@ namespace Web.Areas.admin2.Controllers
      
         public ActionResult Index()
         {
+
             List<ResourceRequestViewModel> liste = new List<ResourceRequestViewModel>();
 
 

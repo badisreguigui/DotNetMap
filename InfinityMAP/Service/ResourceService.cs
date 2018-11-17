@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-   public  class ResourceService : Service<resource>, IResourceService
+   public class ResourceService : Service<resource>, IResourceService
     {
         private static IDatabaseFactory dbf = new DatabaseFactory();
         private static IUnitOfWork utOfWork = new UnitOfWork(dbf);
