@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Domain.Entites;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,5 +10,46 @@ namespace Web.Areas.admin2.Models
 {
     public class ResourceRequestViewModel
     {
+        [Key]
+        public int requestId { get; set; }
+
+        [StringLength(255)]
+        public string Director { get; set; }
+
+        [StringLength(255)]
+        public string EducationScolarity { get; set; }
+
+        [StringLength(255)]
+        public string Title { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime depotDate { get; set; }
+
+        public int? depotHour { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? mandateEndDate { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? mandateStartDate { get; set; }
+
+        [StringLength(255)]
+        public string requirements { get; set; }
+
+        [StringLength(255)]
+        public string searchedProfile { get; set; }
+
+        public int? yearsOfExperience { get; set; }
+
+        public int client_id { get; set; }
+
+        public int project_id { get; set; }
+
+        public virtual client client { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mandate> mandates { get; set; }
+
+        public virtual projet projet { get; set; }
     }
 }

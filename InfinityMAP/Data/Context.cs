@@ -106,6 +106,11 @@ namespace Data
                 .WithOptional(e => e.client)
                 .HasForeignKey(e => e.client_id);
 
+            modelBuilder.Entity<client>()
+              .HasMany(e => e.user)
+              .WithOptional(e => e.client)
+              .HasForeignKey(e => e.client_id);
+
             modelBuilder.Entity<historiqueassignationmandat>()
                 .Property(e => e.etatMandat)
                 .IsUnicode(false);
@@ -155,6 +160,11 @@ namespace Data
                 .HasMany(e => e.resourcerequests)
                 .WithOptional(e => e.projet)
                 .HasForeignKey(e => e.project_id);
+
+            modelBuilder.Entity<resource>()
+                .HasMany(e => e.user)
+                .WithOptional(e => e.resource)
+                .HasForeignKey(e => e.resource_id);
 
             modelBuilder.Entity<projet>()
                 .HasMany(e => e.skills)

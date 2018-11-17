@@ -51,6 +51,33 @@ namespace Web
                       "~/css/demo/jquery-steps.min.css", "~/plugins/summernote/summernote.min.css","~/css/demo/jasmine.css",
                       "~/plugins/pace/pace.min.css", "~/http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700",
                       "~/http://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,400"));
+
+
+
+            // login page styles
+            bundles.Add(new ScriptBundle("~/bundles/login/js").Include(
+                    "~/loginStyle/vendor/jquery/jquery-3.2.1.min.js", 
+                    "~/loginStyle/vendor/animsition/js/animsition.min.js", 
+                    "~/loginStyle/vendor/bootstrap/js/popper.js",
+                    "~/loginStyle/vendor/bootstrap/js/bootstrap.min.js", 
+                    "~/loginStyle/vendor/select2/select2.min.js",
+                    "~/loginStyle/vendor/daterangepicker/moment.min.js", 
+                    "~/loginStyle/vendor/daterangepicker/daterangepicker.js", 
+                    "~/loginStyle/vendor/countdowntime/countdowntime.js",
+                    "~/loginStyle/js/main.js"
+                     ));
+
+            bundles.Add(new StyleBundle("~/Content/login/css").Include(
+                      "~/loginStyle/vendor/bootstrap/css/bootstrap.min.css",
+                      "~/loginStyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
+                      "~/loginStyle/fonts/iconic/css/material-design-iconic-font.min.css",
+                      "~/loginStyle/vendor/animate/animate.css",
+                      "~/loginStyle/vendor/css-hamburgers/hamburgers.min.css",
+                      "~/loginStyle/vendor/animsition/css/animsition.min.css",
+                      "~/loginStyle/vendor/select2/select2.min.css",
+                      "~/loginStyle/vendor/daterangepicker/daterangepicker.css",
+                      "~/loginStyle/css/util.css",
+                      "~/loginStyle/css/main.csss"));
         }
     }
 }

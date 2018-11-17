@@ -27,6 +27,7 @@ namespace Domain.Entites
         [StringLength(255)]
         public string Title { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? depotDate { get; set; }
 
         public int? depotHour { get; set; }

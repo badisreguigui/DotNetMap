@@ -34,7 +34,7 @@ namespace Domain.Entites
         [Column(TypeName = "date")]
         public DateTime? projetStartDate { get; set; }
 
-        public int? statut { get; set; }
+        public string statut { get; set; }
 
         public int? client_id { get; set; }
 

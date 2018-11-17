@@ -7,11 +7,14 @@ namespace Web.Models
 {
     public class UserViewModel
     {
-        public int UtilisateurId { get; set; }
-        public string name { get; set; }
+       
+        public string login { get; set; }
 
-        public string prenom { get; set; }
+        public string password { get; set; }
 
-        public int age { get; set; }
+        public string role { get; set; }
+
+        public string token { get; set; }
+
     }
 }

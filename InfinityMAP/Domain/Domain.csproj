@@ -80,7 +80,6 @@
     <Compile Include="Entities\user.cs" />
     <Compile Include="Entities\vacation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilisateur.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

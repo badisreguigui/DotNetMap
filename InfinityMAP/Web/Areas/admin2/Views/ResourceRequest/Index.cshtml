@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Web.Areas.admin2.Models.ResourceRequestViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+
+
+<div class="eq-height">
+    <div class="col-lg-6 eq-box-sm">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Hover rows</h3>
+            </div>
+            <!--Hover Rows-->
+            <!--===================================================-->
+            <div class="panel-body">
+                <table class="table table-hover table-vcenter">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.requirements)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.searchedProfile)</th>
+                            <th class="hidden-xs">@Html.DisplayNameFor(model => model.yearsOfExperience)</th>
+                            <th>@Html.DisplayNameFor(model => model.client.nom)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var item in Model)
+                       {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>
+                                <span class="text-semibold">@Html.DisplayFor(modelItem => item.requirements)</span>
+                                @*<br>
+                                <small class="text-muted">Last 7 days : 34,553k</small>*@
+                            </td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.searchedProfile)</td>
+                            <td class="hidden-xs">@Html.DisplayFor(modelItem => item.yearsOfExperience)</td>
+                            <td>@Html.DisplayFor(modelItem => item.client.nom)</td>
+                            <td>
+                                <div class="label label-table label-warning">Pending</div>
+                            </td>
+                        </tr>
+                       }
+                    </tbody>
+                </table>
+            </div>
+            <!--===================================================-->
+            <!--End Hover Rows-->
+        </div>
+    </div>
+    </div>
+
+
+
+
