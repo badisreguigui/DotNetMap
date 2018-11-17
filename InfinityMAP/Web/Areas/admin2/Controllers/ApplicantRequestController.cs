@@ -193,7 +193,6 @@ namespace Web.Areas.admin2.Controllers
                     contenuCensure += "***** ";
                 }
             }
-            //return contenuCensure; 
             return Json(contenuCensure,
            JsonRequestBehavior.AllowGet);
         }
