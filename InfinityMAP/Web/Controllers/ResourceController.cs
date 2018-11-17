@@ -18,30 +18,26 @@ namespace Web.Controllers
     {
         IResourceService rs = new ResourceService();
         // GET: Resource
-        public ActionResult Index()
+        public ActionResult Index(string lastname, string firstname)
         {
             List<ResourceViewModel> listResourceViewModels = new List<ResourceViewModel>();
-
+            String url = "/InfinityMAP-web/rest/ResourceService/filterResources?";
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:18080");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ResourceService/filterResources").Result;
+            if (!String.IsNullOrEmpty(firstname))
+            {
+                url = url + "&firstname=" + firstname;
+            }
+            if (!String.IsNullOrEmpty(lastname))
+            {
+                url = url + "&lastname=" + lastname;
+            }
+            HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
+
                 ViewBag.result = response.Content.ReadAsAsync<IEnumerable<resource>>().Result;
-                foreach (var resource in ViewBag.result)
-                {
-
-                    ResourceViewModel resourceViewModel = new ResourceViewModel();
-                    resourceViewModel.lastname = resource.lastname;
-                    resourceViewModel.firstname = resource.firstname;
-                    resourceViewModel.profil = resource.profil;
-                    resourceViewModel.contractype = resource.contractype;
-
-
-                    listResourceViewModels.Add(resourceViewModel);
-
-                }
             }
             else
             {
@@ -63,7 +59,6 @@ namespace Web.Controllers
             {
 
                 r = response.Content.ReadAsAsync<ResourceViewModelDetails>().Result;
-
             }
             else { ViewBag.result = "erreur"; }
             return View(r);
@@ -278,6 +273,11 @@ namespace Web.Controllers
             return Json(liste, JsonRequestBehavior.AllowGet);
 
 
+        }
+
+        public ActionResult calendarTemplate()
+        {
+            return View();
         }
 
     }
