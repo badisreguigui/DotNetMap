@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "List Requests";
+}
+
+<h2>List of Request notifications</h2>
+<p><b>Result:</b> @ViewBag.result</p>
+@if (ViewBag.requests != null)
+{
+    foreach (var result in ViewBag.requests)
+    {
+        <div>
+            <p>RequestId: @result.requestId</p>
+            <p>Date of Request: @result.date</p>
+            <p>Speciality: @result.speciality</p>
+            <p style="display: inline;">State: @result.state</p><br /><br />
+            <input type="button" value="Approve this Request" class="btn btn-default" onclick="document.getElementById(@result.requestId).style.display = 'inline'; " />
+            <input type="button" value="Refuse this Request" class="btn btn-default" onclick="annulerRequest(@result.requestId)" />
+
+            <div id="@result.requestId" style="display: none;">
+                    <input type="date" id="date@(result.requestId)" />
+                    <input type="button" value="Confirm" class="btn btn-default" onclick="accepterRequest(@result.requestId)" />
+                    <input type="button" value="Cancel" class="btn btn-default" onclick="" />
+             
+            </div>
+        </div>
+        <br /><hr />
+    }
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script>
+    function annulerRequest(id) {
+        //var urlEdit = $("#" + id).data("url");
+        var urlEdit = '@Html.Raw(@Url.Action("TraiterDemande", "ApplicantRequest", new { date = "2019-08-21", requestId = "idd", reponse = "-1" }))';
+        urlEdit = urlEdit.replace("idd", id+"");
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified:true,
+            success: function (d) {
+                document.getElementById(id).innerHTML = d;
+                document.getElementById(id).style.display = "inline";
+                console.log(document.getElementById(id).parentNode.innerHTML);
+                document.getElementById(id).parentNode.innerHTML = document.getElementById(id).parentNode.innerHTML.replace("waiting", "<p style='color: red; display: inline;'>denied</p>");
+
+            }
+        });
+    }
+
+    function accepterRequest(id){
+        var urlEdit = '@Html.Raw(@Url.Action("TraiterDemande", "ApplicantRequest", new { date = "2019-08-21", requestId = "idd", reponse = "1" }))';
+        urlEdit = urlEdit.replace("idd", id+"");
+        urlEdit = urlEdit.replace("2019-08-21", document.getElementById('date'+id).value);
+        $.ajax({
+            method: 'POST',
+            url: urlEdit,
+            ifModified:true,
+            success: function (d) {
+                document.getElementById(id).innerHTML = d;
+                document.getElementById(id).style.display = "inline";
+                console.log(document.getElementById(id).parentNode.innerHTML);
+                document.getElementById(id).parentNode.innerHTML = document.getElementById(id).parentNode.innerHTML.replace("waiting", "<p style='color: green; display: inline;'>inProcess</p>");
+                document.getElementById(id).parentNode.innerHTML = document.getElementById(id).parentNode.innerHTML.replace("denied", "<p style='color: green; display: inline;'>inProcess</p>");
+
+            }
+        });
+    }
+</script>
+   

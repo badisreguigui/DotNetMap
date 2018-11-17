@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Add Applicant Request";
+}
+
+<h2>Add Applicant Request</h2>
+<form action="/ApplicantRequest/AddRequest" method="post">
+    <label></label>
+    <input id="speciality" name="speciality" asp-for="speciality" placeholder="Your speciality goes here" class="form-control"/>
+    <input id="idUser" name="ApplicantId" asp-for="ApplicantId" placeholder="Your ApplicantId goes here" class="form-control" />
+    <input type="submit" value="submit" class="btn btn-default"/>
+</form>
+
+<br /><input type="button" value="Voir Liste Requests" class="btn btn-default" onclick="location.href='@Url.Action("Index", "ApplicantRequest")'" />
+<!--<input type="button" value="Add" class="btn btn-default" onclick="location.href='@Url.Action("AddRequest", "ApplicantRequest")'" />
+-->
+@if (ViewBag.testResult != null)
+{
+    <p>@ViewBag.result. Vous pouvez 
+        <input type="button" value="consulter son etat" class="btn btn-default" onclick="location.href='@Url.Action("GetRequest", "ApplicantRequest", new { id = ViewBag.id })'" />
+    maintenant </p>
+}
+else
+{
+    <p>@ViewBag.result</p>
+}
+<br />
+@if (ViewBag.request != null)
+{
+    <h2>Details of the Applicant Request</h2>
+    <p>Speciality: @ViewBag.request.speciality</p>
+    <p>Date: @ViewBag.request.date</p>
+    <p>State: @ViewBag.request.state</p>
+    <p>requestId: @ViewBag.request.requestId</p>
+    <a href="@Url.Action("DeleteRequest", "ApplicantRequest", new { applicantId = 2, requestId = ViewBag.id })">Delete this Request</a>
+}
+@if (ViewBag.requestState != null)
+{
+    <p> @ViewBag.requestState</p>
+}
