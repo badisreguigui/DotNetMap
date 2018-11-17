@@ -93,6 +93,14 @@
       <HintPath>..\packages\MySql.Data.Entity.6.8.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -186,13 +194,12 @@
     <Compile Include="Areas\admin2\Controllers\ClientController.cs" />
     <Compile Include="Areas\admin2\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin2\Controllers\MandateController.cs" />
-
+    <Compile Include="Areas\admin2\Controllers\ProjetController.cs" />
     <Compile Include="Areas\admin2\Controllers\ResourceRequestController.cs" />
-
     <Compile Include="Areas\admin2\Models\ClientViewModel.cs" />
-
     <Compile Include="Areas\admin2\Models\HistoriqueAssignationMandatViewModel.cs" />
     <Compile Include="Areas\admin2\Models\MandateViewModel.cs" />
+    <Compile Include="Areas\admin2\Models\ProjetModelView.cs" />
     <Compile Include="Areas\admin2\Models\ResourceRequestViewModel.cs" />
     <Compile Include="Areas\admin2\Models\ResourceViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -252,6 +259,7 @@
     <Content Include="Content\loginStyle\vendor\select2\select2.js" />
     <Content Include="Content\loginStyle\vendor\select2\select2.min.css" />
     <Content Include="Content\loginStyle\vendor\select2\select2.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\demo\demo.css" />
@@ -378,7 +386,6 @@
     <Content Include="Areas\admin2\Views\Mandate\Edit.cshtml" />
     <Content Include="Areas\admin2\Views\_ViewStart.cshtml" />
     <Content Include="Areas\admin2\Views\Shared\_Layout.cshtml" />
-
     <Content Include="Areas\admin2\Views\ResourceRequest\Index.cshtml" />
     <Content Include="Content\loginStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\loginStyle\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -502,16 +509,11 @@
     <Content Include="loginStyle\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="loginStyle\fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="loginStyle\fonts\poppins\Poppins-ThinItalic.ttf" />
-
     <Content Include="Areas\admin2\Views\Client\Index.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\Delete.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\Create.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\Details.cshtml" />
     <Content Include="Areas\admin2\Views\Client\Edit.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\FindByID.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\Findd.cshtml" />
-    <Content Include="Areas\admin2\Views\Client\Eddd.cshtml" />
-
+    <Content Include="Areas\admin2\Views\Client\Delete.cshtml" />
+    <Content Include="Areas\admin2\Views\Client\Details.cshtml" />
+    <Content Include="Areas\admin2\Views\Client\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -541,9 +543,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Resource\Index.cshtml" />
     <Content Include="Views\Resource\Create.cshtml" />
-
     <Content Include="Views\Home\LogIn.cshtml" />
-
     <Content Include="Views\Resource\Calendar.cshtml" />
     <Content Include="Views\Resource\Delete.cshtml" />
     <Content Include="Views\Resource\Details.cshtml" />
@@ -553,6 +553,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\admin2\Views\Projet\" />
     <Folder Include="img\" />
     <Folder Include="plugins\animate-css\" />
     <Folder Include="plugins\bootbox\" />

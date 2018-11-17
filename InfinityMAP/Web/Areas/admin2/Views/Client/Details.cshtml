@@ -2,56 +2,65 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+
 }
 
-<h2>Details</h2>
+<h2>Details </h2>
+<br />
 
-<div>
-    <h4>ClientViewModel</h4>
+    <h4>Fiche details client : <span style="color:red;">@Html.DisplayFor(model => model.nom)</span></h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.categorie)
-        </dt>
+<div style="display:flex;flex-direction:row;align-items: center;">
+    <div class="container" style="margin-top:20px;">
+        <dl>
+            <dd>
+                <img src="~/Image/@Url.Content(Model.logo)" width="200" height="150" />
 
-        <dd>
-            @Html.DisplayFor(model => model.categorie)
-        </dd>
+            </dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.etat)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.etat)
-        </dd>
+    </div>
+    <div class="container" style="margin-top:60px;">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.logo)
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.categorie)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.categorie)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.logo)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.etat)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nom)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.etat)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nom)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nom)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.typeClient)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nom)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.typeClient)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.typeClient)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.typeClient)
+            </dd>
+
+        </dl>
+    </div>
+
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
