@@ -13,7 +13,6 @@ namespace Web.Models
 
         public DateTime? dateEnd { get; set; }
 
-        public int? resource_id { get; set; }
 
 
     }
