@@ -45,10 +45,10 @@ namespace Domain.Entites
         public string searchedProfile { get; set; }
 
         public int? yearsOfExperience { get; set; }
+     
+        public int client_id { get; set; }
 
-        public int? client_id { get; set; }
-
-        public int? project_id { get; set; }
+        public int project_id { get; set; }
 
         public virtual client client { get; set; }
 

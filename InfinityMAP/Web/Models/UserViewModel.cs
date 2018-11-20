@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,11 @@ namespace Web.Models
         public string role { get; set; }
 
         public string token { get; set; }
+
+        public client client { get; set; }
+
+        public resource resource { get; set; }
+
 
     }
 }

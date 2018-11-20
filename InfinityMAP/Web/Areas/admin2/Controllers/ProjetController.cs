@@ -13,17 +13,16 @@ namespace Web.Areas.admin2.Controllers
     public class ProjetController : Controller
     {
         // GET: admin2/Projet
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
             List<ProjetViewModel> liste = new List<ProjetViewModel>();
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:18080");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("Application/json"));
-            HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ProjetService/afficherAllProjets").Result;
+            HttpResponseMessage response = client.GetAsync("/InfinityMAP-web/rest/ProjetService/findListPByIdClient/"+Session["idconnected"]).Result;
             var listeclients = response.Content.ReadAsAsync<IEnumerable<ProjetViewModel>>().Result;
            
-            if (!String.IsNullOrEmpty(searchString))
-            {
+          
                 if (response.IsSuccessStatusCode)
                 {
                     foreach (var i in listeclients)
@@ -31,25 +30,26 @@ namespace Web.Areas.admin2.Controllers
                         ProjetViewModel userView = new ProjetViewModel();
                         userView.id = i.id;
                         userView.nom = i.nom;
-                        userView.date_fin = i.date_fin;
-                        userView.date_debut = i.date_debut;
+                        userView.projetEndDate = i.projetEndDate;
+                        userView.projetStartDate = i.projetStartDate;
                         userView.statut = i.statut;
                         userView.client_id = i.client_id;
                         liste.Add(userView);
                     }
+
                     //clients = clients.Where(s => s.nom.Contains(searchBy));
                 }
                 else
                 {
                     liste = null;
                 }
-                listeclients = listeclients.Where(s => s.nom.Contains(searchString));
-            }
+                
+            
 
 
             // projetpaged =  projetpaged.Where(s => s.nom.Contains(SearchString));
 
-            return View(listeclients);
+            return View(liste);
 
 
         }

@@ -40,10 +40,21 @@ namespace Web.Controllers
 
             HttpResponseMessage response = Client.GetAsync("http://localhost:18080/InfinityMAP-web/rest/authentification/login?username=" + user.login + "&password=" + user.password).Result;
             var u = response.Content.ReadAsAsync<UserViewModel>().Result;
-           if(!(u==null))
+           if(!(u.client==null))
             {
+
+                Session["idconnected"] = u.client.id;
                 Session["Login"] = user.login;
+                Session["clientName"] = u.client.nom;
                 Session["role"]=u.role;
+                Session["Token"] = u.token;
+                return RedirectToAction("Index", "Projet", new { area = "admin2" });
+            }
+           else if (!(u.resource == null))
+            {
+                Session["idconnected"] = u.resource.id;
+                Session["Login"] = user.login;
+                Session["role"] = u.role;
                 Session["Token"] = u.token;
                 return RedirectToAction("Index", "ResourceRequest", new { area = "admin2" });
             }

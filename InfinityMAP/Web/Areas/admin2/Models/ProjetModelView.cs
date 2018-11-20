@@ -20,10 +20,14 @@ namespace Web.Areas.admin2.Models
         public string nom { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? date_fin { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode =true,DataFormatString ="{0:yyyy-MM-dd}")]
+        public DateTime projetStartDate { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? date_debut { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime projetEndDate { get; set; }
 
         public string statut { get; set; }
 

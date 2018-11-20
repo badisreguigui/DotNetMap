@@ -62,12 +62,11 @@ namespace Web.Areas.admin2.Controllers
 
         // POST: ResourceRequest/Create
         [HttpPost]
-        public ActionResult Create(ResourceRequestViewModel resourceRequest )
+        public ActionResult Create(resourcerequest resourceRequest )
         {
         
             try
             {
-                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -76,6 +75,37 @@ namespace Web.Areas.admin2.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult addResourceRequest(string idproject, string searchedProfile,string requirements,string yearsOfExperience,string titreproject)
+        {
+
+            try
+            {
+                ResourceRequestViewModel resourceRequest = new ResourceRequestViewModel();
+                //get value from view to controller 
+                // string firstName = HttpContext.Request.Form["FirstName"];
+               // resourceRequest.client_id = Int32.Parse(Session["idconnected"].ToString());
+                //resourceRequest.project_id = Int32.Parse(idproject);
+                resourceRequest.searchedProfile = searchedProfile;
+                resourceRequest.yearsOfExperience = Int32.Parse(yearsOfExperience);
+                resourceRequest.Title = titreproject;
+           
+
+                HttpClient Client = new HttpClient(); 
+                Client.PostAsJsonAsync("http://localhost:18080/InfinityMAP-web/rest/ResourceRequestService/addResourceRequest?idProject=1"+Int32.Parse(idproject)+"&idClient="+Int32.Parse(Session["idconnected"].ToString()),resourceRequest).ContinueWith((postTask)=>postTask.Result.EnsureSuccessStatusCode());
+                return Json("success",
+                 JsonRequestBehavior.AllowGet);
+              
+            }
+            catch
+            {
+             
+                return Json("failure",
+            JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         // GET: ResourceRequest/Edit/5
         public ActionResult Edit(int id)
