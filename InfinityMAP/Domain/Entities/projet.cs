@@ -17,6 +17,7 @@ namespace Domain.Entites
             skills = new HashSet<skill>();
         }
 
+
         public int id { get; set; }
 
         [StringLength(255)]

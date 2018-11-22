@@ -25,6 +25,11 @@ namespace Web.Areas.admin2.Models
 
         public int? yearsOfExperience { get; set; }
 
+        [Column(TypeName = "date")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime depotDate { get; set; }
+
         public virtual client client { get; set; }
 
         public virtual projet projet { get; set; }

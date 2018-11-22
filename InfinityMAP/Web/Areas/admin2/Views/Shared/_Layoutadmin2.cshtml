@@ -143,7 +143,7 @@
                         <!--Notification dropdown-->
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <li class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-bell fa-lg"></i> <span class="badge badge-header badge-danger">5</span> </a>
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-bell fa-lg"></i> <span class="badge badge-header badge-danger">@ViewBag.number</span> </a>
                             <!--Notification dropdown menu-->
                             <div class="dropdown-menu dropdown-menu-md with-arrow">
                                 <div class="pad-all bord-btm">
@@ -153,57 +153,29 @@
                                     <div class="nano-content">
                                         <ul class="head-list">
                                             <!-- Dropdown list-->
-                                            <li>
-                                                <a href="#" class="media">
-                                                    <div class="media-left"> <span class="icon-wrap icon-circle bg-primary"> <i class="fa fa-comment fa-lg"></i> </span> </div>
-                                                    <div class="media-body">
-                                                        <div class="text-nowrap">New comments waiting approval</div>
-                                                        <small class="text-muted">15 minutes ago</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- Dropdown list-->
-                                            <li>
-                                                <a href="#" class="media">
-                                                    <span class="badge badge-success pull-right">90%</span>
-                                                    <div class="media-left"> <span class="icon-wrap icon-circle bg-danger"> <i class="fa fa-hdd-o fa-lg"></i> </span> </div>
-                                                    <div class="media-body">
-                                                        <div class="text-nowrap">HDD is full</div>
-                                                        <small class="text-muted">50 minutes ago</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- Dropdown list-->
-                                            <li>
-                                                <a href="#" class="media">
-                                                    <div class="media-left"> <span class="icon-wrap icon-circle bg-info"> <i class="fa fa-file-word-o fa-lg"></i> </span> </div>
-                                                    <div class="media-body">
-                                                        <div class="text-nowrap">Write a news article</div>
-                                                        <small class="text-muted">Last Update 8 hours ago</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- Dropdown list-->
-                                            <li>
-                                                <a href="#" class="media">
-                                                    <span class="label label-danger pull-right">New</span>
-                                                    <div class="media-left"> <span class="icon-wrap icon-circle bg-purple"> <i class="fa fa-comment fa-lg"></i> </span> </div>
-                                                    <div class="media-body">
-                                                        <div class="text-nowrap">Comment Sorting</div>
-                                                        <small class="text-muted">Last Update 8 hours ago</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- Dropdown list-->
-                                            <li>
-                                                <a href="#" class="media">
-                                                    <div class="media-left"> <span class="icon-wrap icon-circle bg-success"> <i class="fa fa-user fa-lg"></i> </span> </div>
-                                                    <div class="media-body">
-                                                        <div class="text-nowrap">New User Registered</div>
-                                                        <small class="text-muted">4 minutes ago</small>
-                                                    </div>
-                                                </a>
-                                            </li>
+                                             @foreach (var item in ViewBag.result)
+                                             {
+                                                 int Value = DateTime.Now.Day - item.depotDate.Day;
+                                                <li>
+                                                    <a href="#" class="media">
+                                                        <div class="media-left"> <span class="icon-wrap icon-circle bg-info"> <i class="fa fa-file fa-lg"></i> </span> </div>
+                                                        <div class="media-body">
+                                                            <div class="text-nowrap">@item.Title</div>
+                                                            @if (Value==0)
+                                                            { 
+                                                                <small class="text-muted">Sent Today by @item.Director</small>
+                                                            }
+                                                            else
+                                                            {
+                                                                <small class="text-muted">Sent @Value Days Ago  by @item.Director </small>
+
+                                                            }
+
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                             }
+                                            
                                         </ul>
                                     </div>
                                 </div>

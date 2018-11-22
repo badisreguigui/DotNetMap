@@ -19,6 +19,11 @@ namespace Domain.Entites
 
         public int? duree { get; set; }
 
+  
+        public int granted { get; set; }
+
+        public int typeLeave { get; set; }
+
         public int? resource_id { get; set; }
 
         public virtual resource resource { get; set; }

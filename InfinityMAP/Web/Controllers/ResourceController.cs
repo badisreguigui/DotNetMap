@@ -17,6 +17,7 @@ namespace Web.Controllers
     public class ResourceController : Controller
     {
         IResourceService rs = new ResourceService();
+        IResourceRequestService rrs = new ResourceRequestService();
         // GET: Resource
         public ActionResult Index(string lastname, string firstname)
         {
@@ -51,17 +52,28 @@ namespace Web.Controllers
         {
             ResourceViewModelDetails r = new ResourceViewModelDetails();
 
+
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/ResourceService/detailsResources/" + id).Result;
-            if (response.IsSuccessStatusCode)
+          //  HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/ResourceService/detailsResources/" + id).Result;
+            HttpResponseMessage response1 = Client.GetAsync("InfinityMAP-web/rest/ResourceRequestService/getResourceRequest").Result;
+           /* if (response.IsSuccessStatusCode)
             {
 
                 r = response.Content.ReadAsAsync<ResourceViewModelDetails>().Result;
+            }*/
+            if (response1.IsSuccessStatusCode)
+            {
+
+                ViewBag.result = response1.Content.ReadAsAsync<IEnumerable<ResourceRequestViewModel>>().Result;
+                ViewBag.number = rrs.GetresourceRequestNumber();
             }
-            else { ViewBag.result = "erreur"; }
-            return View(r);
+            else
+            {
+                ViewBag.result = "erreur";
+            }
+            return View();
 
         }
 

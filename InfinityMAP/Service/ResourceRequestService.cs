@@ -18,10 +18,12 @@ namespace Service
 
         }
 
-        public List<resourcerequest> GetresourceRequest()
+        public int GetresourceRequestNumber()
         {
-            var adherant = utOfWork.AdherantRepository.GetById(id);
-            return adherant;
+            /* var adherant = utOfWork.AdherantRepository.GetById(id);
+             return adherant;*/
+
+            return this.GetAll().Count();
         }
     }
 }

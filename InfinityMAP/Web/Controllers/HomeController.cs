@@ -50,13 +50,14 @@ namespace Web.Controllers
                 Session["Token"] = u.token;
                 return RedirectToAction("Index", "Projet", new { area = "admin2" });
             }
+
            else if (!(u.resource == null))
             {
                 Session["idconnected"] = u.resource.id;
                 Session["Login"] = user.login;
                 Session["role"] = u.role;
                 Session["Token"] = u.token;
-                return RedirectToAction("Index", "ResourceRequest", new { area = "admin2" });
+                return RedirectToAction("Details", "Resource", new { id = u.resource.id });
             }
             else
             {

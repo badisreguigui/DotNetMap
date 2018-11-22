@@ -10,5 +10,6 @@ namespace Service
 {
     public interface IResourceRequestService :IService<resourcerequest>
     {
+        int GetresourceRequestNumber();
     }
 }

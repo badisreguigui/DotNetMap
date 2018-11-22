@@ -60,9 +60,11 @@
     <Compile Include="ClientService.cs" />
     <Compile Include="IClientService.cs" />
     <Compile Include="IMandateService.cs" />
+    <Compile Include="IResourceRequestService.cs" />
     <Compile Include="IResourceService.cs" />
     <Compile Include="MandateService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceRequestService.cs" />
     <Compile Include="ResourceService.cs" />
     <Compile Include="IVacationService.cs" />
     <Compile Include="VacationService.cs" />

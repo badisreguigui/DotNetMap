@@ -28,7 +28,9 @@ namespace Domain.Entites
         public string Title { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? depotDate { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime depotDate { get; set; }
 
         public int? depotHour { get; set; }
 
@@ -46,9 +48,9 @@ namespace Domain.Entites
 
         public int? yearsOfExperience { get; set; }
      
-        public int client_id { get; set; }
+        public int? client_id { get; set; }
 
-        public int project_id { get; set; }
+        public int? project_id { get; set; }
 
         public virtual client client { get; set; }
 
