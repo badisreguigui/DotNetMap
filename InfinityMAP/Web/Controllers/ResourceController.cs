@@ -19,8 +19,9 @@ namespace Web.Controllers
         IResourceService rs = new ResourceService();
         IResourceRequestService rrs = new ResourceRequestService();
         // GET: Resource
-        public ActionResult Index(string lastname, string firstname)
+        public ActionResult Index(string lastname, string firstname, string region,string contractype,string state)
         {
+            string contract = "";
             List<ResourceViewModel> listResourceViewModels = new List<ResourceViewModel>();
             String url = "/InfinityMAP-web/rest/ResourceService/filterResources?";
             HttpClient client = new HttpClient();
@@ -34,17 +35,33 @@ namespace Web.Controllers
             {
                 url = url + "&lastname=" + lastname;
             }
+            if (!String.IsNullOrEmpty(region))
+            {
+                url = url + "&region=" + region;
+            }
+            if (!String.IsNullOrEmpty(contractype))
+            {
+                url = url + "&contractype=" + contractype;
+                contract = contractype;
+                
+            }
+            if (!String.IsNullOrEmpty(state))
+            {
+                url = url + "&state=" + state;
+
+            }
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
 
                 ViewBag.result = response.Content.ReadAsAsync<IEnumerable<resource>>().Result;
+                ViewBag.contract = contractype;
             }
             else
             {
                 ViewBag.result = "error";
             }
-            return View(listResourceViewModels);
+            return View("Index");
         }
 
         // GET: Resource/Details/5
@@ -56,13 +73,13 @@ namespace Web.Controllers
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-          //  HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/ResourceService/detailsResources/" + id).Result;
+            HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/ResourceService/detailsResources/" + id).Result;
             HttpResponseMessage response1 = Client.GetAsync("InfinityMAP-web/rest/ResourceRequestService/getResourceRequest").Result;
-           /* if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
 
                 r = response.Content.ReadAsAsync<ResourceViewModelDetails>().Result;
-            }*/
+            }
             if (response1.IsSuccessStatusCode)
             {
 
@@ -73,7 +90,7 @@ namespace Web.Controllers
             {
                 ViewBag.result = "erreur";
             }
-            return View();
+            return View(r);
 
         }
 
@@ -268,18 +285,23 @@ namespace Web.Controllers
         {
             return View();
         }
-        public JsonResult GetVacations()
+        public JsonResult GetVacations(int id)
         {
             VacationService vs = new VacationService();
 
             List<vacationViewModel> liste = new List<vacationViewModel>();
-            var listUser = vs.GetAll();
+            var listUser = vs.GetAll().Where(s => s.resource_id == id);
+
+            //listUser.Where(s => s.resource_id == idresource);
             foreach (var item in listUser)
             {
                 vacationViewModel userView = new vacationViewModel();
                 userView.id = item.id;
                 userView.dateStart = item.dateStart;
                 userView.dateEnd = item.dateEnd;
+                userView.duree = item.duree;
+                userView.typeLeave = item.typeLeave;
+                userView.granted = item.granted;
                 liste.Add(userView);
             }
             return Json(liste, JsonRequestBehavior.AllowGet);

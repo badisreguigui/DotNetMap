@@ -1,11 +1,11 @@
-﻿@model List<Web.Models.vacationViewModel>
+﻿
+@model List<Web.Models.vacationViewModel>
 @{
     ViewBag.Title = "Calendar";
-   Layout = "~/Areas/admin2/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/admin2/Views/Shared/_Layout.cshtml";
 
 }
 
-<h2>Resource's Calendar</h2>
 
 <div id="calender"></div>
 
@@ -32,47 +32,226 @@
     </div>
 </div>
 
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Save Event</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>Start</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEndDate">
+                        <label>End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Leave</label>
+                        <select id="typeLeave" class="form-control">
+                            <option value="0">Maternity</option>
+                            <option value="1">Sickness</option>
+                            <option value="2">Holidays</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
 
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
 
-            $.ajax({
-                type: "GET",
-                url: "/Resource/GetVacations",
-                dataType: "json",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                       
-                        var currentTimeStart = new Date(parseInt(v.dateStart.substr(6)));
-                        var currentTimeEnd = new Date(parseInt(v.dateEnd.substr(6)));
-                        console.log(currentTimeStart);
-                        console.log(currentTimeEnd);
-                        console.log(v.id);
-                        events.push({
-                            title: v.id,
-                            start: moment(currentTimeStart),
-                            end: moment(currentTimeEnd),
+            function FetchEventAndRenderCalendar() {
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                var events = [];
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetVacations", "Resource")',
+                    data: { 'id': id },
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            var typeleave;
+                            var currentTimeStart = new Date(parseInt(v.dateStart.substr(6)));
+                            var currentTimeEnd = new Date(parseInt(v.dateEnd.substr(6)));
+                            console.log("id resource : " + id);
+                            if (v.typeLeave == 0) {
+                                typeleave = "Maternity";
+                            }
+                            if (v.typeLeave == 1) {
+                                typeleave = "Sickness";
+                            }
+                            if (v.typeLeave == 2) {
+                                typeleave = "Holidays";
+                            }
+                            console.log(currentTimeStart);
+                            console.log(currentTimeEnd);
+                            console.log(v.id);
+                            console.log(v.duree);
+                            console.log(v.typeLeave);
+                            console.log(typeleave);
+                            console.log(v.granted);
+                            if (v.granted == 0) {
+                                events.push({
+                                    eventID: v.id,
+                                    title: typeleave,
+                                    start: moment(currentTimeStart),
+                                    end: moment(currentTimeEnd),
+                                    description: typeleave,
+                                    color: "red",
+
+                                });
+                            }
+                            else {
+                                events.push({
+                                    eventID: v.id,
+                                    title: typeleave,
+                                    start: moment(currentTimeStart),
+                                    end: moment(currentTimeEnd),
+                                    description: typeleave,
+                                    color: "blue",
+
+                                });
+                            }
+
+                            //alert('Success' + v.dateDebut + v.id);
 
                         });
-                        //alert('Success' + v.dateDebut + v.id);
-                        
-                    });
 
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    alert('failed');
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+                GenerateCalender(events);
+
+            }
+
+            $('#btnDelete').click(function () {
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                if (selectedEvent != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: "POST",
+                        url:'@Url.Action("DeleteEvent", "Resource")',
+                        data: { 'id':id,'eventID': selectedEvent.eventID },
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                                //$('#calendar').fullCalendar('rerenderEvents');
+                                //$('#calendar').fullCalendar('refetchEvents');
+                            }
+                            else {
+                                alert("you can only delete your pending requests ")
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
                 }
+            });
+
+            $('#btnSave').click(function () {
+                //Validation/
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#txtEnd').val().trim() == "") {
+                    alert('End date required');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY").toDate();
+                    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+
+                var data = {
+
+                    dateStart: $('#txtStart').val().trim(),
+                    dateEnd: $('#txtEnd').val().trim(),
+                }
+                console.log(data);
+                SaveEvent(data);
+                // call function for submit data to the server
             })
-            GenerateCalender(events);
-            
+            function SaveEvent(data) {
+                console.log(data.dateStart + " " + data.end + " " + data.description + " " + data.eventID);
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveEvent", "Resource")',
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#txtEnd').val(selectedEvent.end.format('DD/MM/YYYY HH:mm A'));
+                    $('#typeleave').val(selectedEvent.description);
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
 
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
@@ -89,6 +268,7 @@
                     eventColor: '#378006',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
@@ -99,6 +279,31 @@
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: ''
+                        };
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            EventID: event.eventID,
+                            Subject: event.typeLeave,
+                            Start: event.dateStart.format('DD/MM/YYYY'),
+                            End: event.dateEnd != null ? event.end.format('DD/MM/YYYY') : null,
+                            Description: event.typeLeave,
+                        };
+                        SaveEvent(data);
                     }
                 })
             }

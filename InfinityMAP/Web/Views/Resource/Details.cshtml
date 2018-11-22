@@ -22,166 +22,81 @@
 
             <div class="userWidget-1">
                 <div class="avatar bg-info">
-                    <img src="img/av7.png" alt="avatar">
-                    <div class="name osLight"> Jane Smith </div>
+                    <img src="~/Image/@Url.Content(Model.picture)" width="50" height="50" />
+                    <div class="name osLight"> @Html.DisplayFor(model => model.lastname) @Html.DisplayFor(model => model.firstname) </div>
                 </div>
-                <div class="title"> Web Designer </div>
-                <div class="address"> Los Angeles, CA, USA </div>
+                <div class="title"> @for (var i = 0; i < Model.rating; i++)
+                {
+                    <img src="~/Image/star.png" width="20" height="20" />
+                } 
+                </div>
                 <ul class="fullstats">
-                    <li> <span>280</span>Followers </li>
-                    <li> <span>345</span>Following </li>
-                    <li> <span>36</span>Posts </li>
+
                 </ul>
                 <div class="clearfix"> </div>
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-user"> </i> User Information</h3>
+                    <h3 class="panel-title"><i class="fa fa-user"> </i> @Html.DisplayFor(model => model.firstname)'s Personal Informations</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <tbody>
                             <tr>
                                 <td><i class="fa fa-external-link ph-5"></i></td>
-                                <td> URL </td>
-                                <td> www.google.com</td>
+                                <td> Sector </td>
+                                <td> @Html.DisplayFor(model => model.sector)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-location-arrow ph-5"></i></td>
+
+                                <td> Region </td>
+                                <td> @Html.DisplayFor(model => model.region)</td>
                             </tr>
                             <tr>
                                 <td><i class="fa fa-envelope-o ph-5"></i></td>
-                                <td> Email </td>
-                                <td>peter@google.com </td>
+                                <td> Profil </td>
+                                <td>@Html.DisplayFor(model => model.profil) </td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-phone ph-5"></i></td>
-                                <td> Phone </td>
-                                <td> (641)-734-4763 </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-skype ph-5"></i></td>
-                                <td> Skype </td>
-                                <td> peterclark82 </td>
+                                <td><i class="fa fa-briefcase ph-5"></i></td>
+                                <td> Seniority </td>
+                                <td>@Html.DisplayFor(model => model.seniority) (years) </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+       
             <div class="panel">
                 <div class="panel-heading">
-                    <h4 class="panel-title"> <i class="fa fa-users"></i> Online Friends </h4>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av1.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av2.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av3.png" alt="" class="img-sm">
-                                <i class="busy bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av4.png" alt="" class="img-sm">
-                                <i class="busy bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av5.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av6.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av7.png" alt="" class="img-sm">
-                                <i class="busy bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av1.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av2.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av3.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av4.png" alt="" class="img-sm">
-                                <i class="busy bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av5.png" alt="" class="img-sm">
-                                <i class="busy bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av6.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av7.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="pull-left avatar">
-                                <img src="img/av4.png" alt="" class="img-sm">
-                                <i class="on bottom text-light"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-user"> </i> User Information</h3>
+                    <h3 class="panel-title"><i class="fa fa-user"> </i> @Html.DisplayFor(model => model.firstname)'s Professional Informations</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td> Position </td>
-                                <td>UI Designer</td>
+                                <td> Contract Type </td>
+                                <td>@Html.DisplayFor(model => model.contractype)</td>
                             </tr>
-                            <tr>
-                                <td> Last Logged In </td>
-                                <td>56 min </td>
-                            </tr>
+
                             <tr>
                                 <td> Status </td>
-                                <td><span class="label label-sm label-info">Administrator</span></td>
+                                @if (Model.state == "Available")
+                                {
+                                    <td><span class="label label-sm label-info">@Html.DisplayFor(model => model.state)</span></td>
+
+                                }
+                                @if (Model.state == "notAvailable")
+                                {
+                                    <td><span class="label label-sm label-danger">@Html.DisplayFor(model => model.state)</span></td>
+
+                                }
+                                @if (Model.state == "SoonAvailable")
+                                {
+                                    <td><span class="label label-sm label-dark">@Html.DisplayFor(model => model.state)</span></td>
+
+                                }
                             </tr>
                         </tbody>
                     </table>
@@ -211,7 +126,7 @@
                                     <div class="timeline-header">
                                         <div class="timeline-header-title bg-info">Now</div>
                                     </div>
-                                    @foreach(var item in ViewBag.result)
+                                    @*@foreach(var item in ViewBag.result)
                                     { 
                                     <div class="timeline-entry">
                                         <div class="timeline-stat">
@@ -222,7 +137,7 @@
                                             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
                                         </div>
                                     </div>
-                                    }
+                                    }*@
                                 </div>
                                 <!--===================================================-->
                                 <!-- End Timeline -->

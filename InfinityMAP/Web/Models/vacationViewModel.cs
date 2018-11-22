@@ -13,6 +13,13 @@ namespace Web.Models
 
         public DateTime? dateEnd { get; set; }
 
+        public int? duree { get; set; }
+
+
+        public int granted { get; set; }
+
+        public int typeLeave { get; set; }
+
 
 
     }
