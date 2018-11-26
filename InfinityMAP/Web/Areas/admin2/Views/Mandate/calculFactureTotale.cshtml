@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Web.Areas.admin2.Models.MandateViewModel>
+
+@{
+    ViewBag.Title = "calculFactureTotale";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+
+<div class="pageheader hidden-xs">
+    <h3><i class="fa fa-home"></i> Datatable Table </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+            <li> <a href="#"> Home </a> </li>
+            <li class="active"> datatable Table </li>
+        </ol>
+    </div>
+</div>
+<!--Page content-->
+<!--===================================================-->
+<div id="page-content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Basic Data Tables -->
+            <!--===================================================-->
+            <div class="panel">
+                <div class="panel-heading">
+               
+                        <h2>@ViewBag.Message</h2>
+                    
+                   
+                </div>
+                <h3 class="panel-title">Liste Mandats</h3>
+                <div class="panel-body" width="50">
+                    <table id="" class="table table-striped table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NomMandat)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.date_start_mandate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.date_end_mandate)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Facture)
+                                </th>
+                       
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomMandat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.date_start_mandate)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.date_end_mandate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Facture)
+                                    </td>
+
+
+                               
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    <a href="@Url.Action("ExportPDF","Mandate")">Export Pdf</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--===================================================-->
+<!--End page content-->

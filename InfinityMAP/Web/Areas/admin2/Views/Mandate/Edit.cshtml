@@ -4,58 +4,154 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
 }
+<link href="~/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>MandateViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Facture, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Facture, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Facture, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NomMandat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomMandat, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomMandat, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.date_end_mandate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.date_end_mandate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date_end_mandate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.date_start_mandate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.date_start_mandate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date_start_mandate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+<header class="pageheader hidden-xs">
+    <h3><i class="fa fa-home"></i> Form Components </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+            <li> <a href="#"> Home </a> </li>
+            <li class="active"> form components </li>
+        </ol>
     </div>
-}
+</header>
+<!--Page content-->
+<section id="page-content">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <button class="btn btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></button>
+                        <button class="btn btn-default" data-click="panel-reload"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-default" data-click="panel-collapse"><i class="fa fa-chevron-down"></i></button>
+                        <button class="btn btn-default" data-dismiss="panel"><i class="fa fa-times"></i></button>
+                    </div>
+                    <h3 class="panel-title">Mandates/Update Mandate</h3>
+                </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NomMandat, htmlAttributes: new { @class = "col-md-3 control-label" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.NomMandat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NomMandat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.date_end_mandate, htmlAttributes: new { @class = "col-md-3 control-label" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.date_end_mandate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.date_end_mandate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.date_start_mandate, htmlAttributes: new { @class = "col-md-3 control-label" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.date_start_mandate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.date_start_mandate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Facture, htmlAttributes: new { @class = "col-md-3 control-label" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Facture, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Facture, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <center><button id="demo-dt-delete-btn" class="btn btn-pink">Update</button></center>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-3 col-sm-12 col-md-6 col-xs-12">
+            <!--Profile Widget-->
+            <!--===================================================-->
+            <div class="panel widget">
+                <div class="widget-header bg-purple">
+                    <img class="widget-bg img-responsive" src="~/img/Levio.PNG" alt="Image">
+                </div>
+                <div class="widget-body text-center">
+                    <img alt="Profile Picture" class="widget-img img-border-light" src="~/img/@Html.DisplayFor(m => m.resource.picture)">
+                    <h4 class="mar-no">@Html.DisplayFor(m => m.resource.firstname)</h4>
+                    <p class="text-muted mar-btm">@Html.DisplayFor(m => m.resource.profil)</p>
+                  
+                </div>
+                <ul class="menu-items">
+               
+
+                  
+@using (Html.BeginForm("calculFactureMandat", "Mandate", FormMethod.Get))
+{ 
+                    <li >
+                        <a href="javascript:void(0)" class="clearfix">
+                            <i class="fa fa-line-chart"></i> Mandates
+                            <span class="label label-danger label-circle pull-right">@ViewBag.count</span>
+                        </a>
+                  
+                   
+                    <div class="col-md-6">
+                        <select class="form-control" name="mandateId" id="mandateId">
+
+                            @{
+
+
+                                foreach (var item in ViewBag.data)
+                                {   //using foreach
+                                    <option value=@item.MandateId>@item.NomMandat</option>
+                                }
+
+                            }
+                        </select>
+                       
+                    </div>
+
+
+</li>
+                    <li><button id="demo-dt-delete-btn" class="btn btn-pink" >calcul Facture</button></li>
+                    }
+                    <li>
+                    <center>    @Html.ActionLink("View Facture Totale", "calculFactureTotale", "Mandate", new { resourceId =ViewBag.resourceId }, new { @area = "admin2" }) </center>
+
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="clearfix">
+                            <i class="fa fa-map-marker"></i>
+                           View Position
+                        </a>
+                           
+                        
+                    </li>
+                   
+                </ul>
+                <!--===================================================-->
+            </div>
+        </div>
+
+    </div>
+    
+
+</section>

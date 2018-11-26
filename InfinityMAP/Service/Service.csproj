@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientService.cs" />
+    <Compile Include="HistoriqueService.cs" />
     <Compile Include="IClientService.cs" />
+    <Compile Include="IHistoriqueService.cs" />
     <Compile Include="IMandateService.cs" />
     <Compile Include="IResourceRequestService.cs" />
     <Compile Include="IResourceService.cs" />

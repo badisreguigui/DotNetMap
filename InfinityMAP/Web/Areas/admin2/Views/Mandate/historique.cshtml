@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Web.Areas.admin2.Models.HistoriqueAssignationMandatViewModel>
+
+@{
+    ViewBag.Title = "historique";
+    Layout = "~/Areas/admin2/Views/Shared/_Layoutadmin2.cshtml";
+}
+
+
+
+<div class="pageheader hidden-xs">
+    <h3><i class="fa fa-home"></i> Datatable Table </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+            <li> <a href="#"> Home </a> </li>
+            <li class="active"> datatable Table </li>
+        </ol>
+    </div>
+</div>
+<!--Page content-->
+<!--===================================================-->
+<div id="page-content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Basic Data Tables -->
+            <!--===================================================-->
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Liste Mandats</h3>
+                </div>
+
+                <div class="panel-body">
+                    <table id="demo-dt-basic" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.HeureSauvegarde)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.etatMandat)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.action)
+                                </th>
+                              
+                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HeureSauvegarde)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.etatMandat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.action)
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--===================================================-->
+<!--End page content-->

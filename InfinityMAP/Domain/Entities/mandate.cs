@@ -16,6 +16,8 @@ namespace Domain.Entites
 
         [StringLength(255)]
         public string NomMandat { get; set; }
+        [StringLength(255)]
+        public string etat { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime date_end_mandate { get; set; }

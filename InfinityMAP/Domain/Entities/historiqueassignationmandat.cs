@@ -23,6 +23,8 @@ namespace Domain.Entites
 
         [StringLength(255)]
         public string etatMandat { get; set; }
+        [StringLength(255)]
+        public string action { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mandate> mandates { get; set; }

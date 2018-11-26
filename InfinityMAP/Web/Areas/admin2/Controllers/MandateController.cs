@@ -2,6 +2,10 @@
 using Domain.Entites;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OfficeOpenXml;
+
+using Service;
 using SERVICE;
 using System;
 using System.Collections.Generic;
@@ -18,20 +22,30 @@ namespace Web.Areas.admin2.Controllers
     public class MandateController : Controller
     {
         IMandateService MandatService = new MandateService();
+        IHistoriqueService HistorriqueService = new HistoriqueService();
+        public ActionResult viewMap()
+        {
+
+          
+            return View();
+
+        }
         // GET: admin2/Mandate
         public ActionResult Index()
         {
            
             List<MandateViewModel> liste = new List<MandateViewModel>();
-           
+         
             
             HttpClient Client= new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/mandate/ListeMandats").Result;
+      
             if (response.IsSuccessStatusCode)
             {
                var listeMandat= response.Content.ReadAsAsync<IEnumerable<mandate>>().Result;
+            
                 foreach (var i in listeMandat)
                 {
                     MandateViewModel userView = new MandateViewModel();
@@ -40,6 +54,8 @@ namespace Web.Areas.admin2.Controllers
                     userView.NomMandat= i.NomMandat;
                     userView.date_end_mandate= i.date_end_mandate;
                     userView.date_start_mandate = i.date_start_mandate;
+                    userView.etat = i.etat;
+             
                     liste.Add(userView);
                 }
 
@@ -63,28 +79,60 @@ namespace Web.Areas.admin2.Controllers
             HttpResponseMessage response = Client.GetAsync("http://127.0.0.1:18080/InfinityMAP-web/rest/mandate/calculFacture?mandateId="+mandateId).Result;
 
 
+            return RedirectToAction("Edit/"+mandateId);
+
+         
+        }
+
+        //public ActionResult ExportPDF()
+        //{
+        //    ActionAsPdf result = new ActionAsPdf("calculFactureTotale")
+        //    {
+        //        FileName = Server.MapPath("~/Content/Facture.pdf")
+
+        //    };
+        //    return result;
+        //}
+
+
+           public ActionResult calculFactureTotale()
+        {
+
+            List<mandate> liste = new List<mandate>();
+            List<MandateViewModel> liste1 = new List<MandateViewModel>();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("http://127.0.0.1:18080/InfinityMAP-web/rest/mandate/calculFactureTotal?resourceId="+15).Result;
+
+
             if (response.IsSuccessStatusCode)
             {
+                liste = MandatService.GetAll().Where(m => m.resource.id == 15).ToList();
+                foreach (var i in liste)
+                {
+                    MandateViewModel userView = new MandateViewModel();
+                    userView.Facture = i.Facture;
+                    userView.MandateId = i.MandateId;
+                    userView.NomMandat = i.NomMandat;
+                    userView.date_end_mandate = i.date_end_mandate;
+                    userView.date_start_mandate = i.date_start_mandate;
+                    userView.etat = i.etat;
 
-              liste = liste.Where(m =>m.MandateId==mandateId).ToList();
+                    liste1.Add(userView);
+                }
 
                 if (liste != null) {
                    
                         ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-
-                    
-
                 }
-
-               
-
-            }
+           }
             else
             {
                 ViewBag.Message = "error";
             }
 
-            return View(listeR);
+            return View(liste1);
         }
 
 
@@ -152,23 +200,48 @@ namespace Web.Areas.admin2.Controllers
         {
             List<MandateViewModel> liste = new List<MandateViewModel>();
 
-
+            ResourceViewModel r = new ResourceViewModel();
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/mandate/ListeMandats").Result;
+         
             if (response.IsSuccessStatusCode)
             {
                 var listeMandat = response.Content.ReadAsAsync<IEnumerable<mandate>>().Result;
+       
                 foreach (var i in listeMandat)
                 {
+                    HttpResponseMessage response2 = Client.GetAsync("InfinityMAP-web/rest/mandate/serachResource?mandatId=" + i.MandateId).Result;
+
+                    string responseString = response2.Content.ReadAsStringAsync().Result;
+                    JObject r2 = JObject.Parse(responseString);
+          
+                   var s= JsonConvert.DeserializeObject<ResourceViewModel>(r2.ToString());
+
+
                     MandateViewModel userView = new MandateViewModel();
+                    userView.resource = r;
                     userView.Facture = i.Facture;
                     userView.MandateId = i.MandateId;
                     userView.NomMandat = i.NomMandat;
                     userView.date_end_mandate = i.date_end_mandate;
                     userView.date_start_mandate = i.date_start_mandate;
+                    r = s;
+                    userView.resource= r;
                     liste.Add(userView);
+                    List<mandate> m = new List<mandate>();
+
+                    m = r.mandates.ToList();
+
+
+                    ViewBag.resourceId = r.id;
+
+
+                    ViewBag.data = m;
+                    ViewBag.count = m.Count;
+
+
                 }
 
             }
@@ -201,29 +274,39 @@ namespace Web.Areas.admin2.Controllers
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var result = Client.PutAsync("InfinityMAP-web/rest/mandate/UpdateMandat/"+id, byteContent).Result;
-            return View();
+            return RedirectToAction("historique",new { mandatId = id });
         }
-
-        // GET: admin2/Mandate/Delete/5
-        public ActionResult Delete(int id)
+        
+        public ActionResult historique(int mandatId)
         {
-            return View();
-        }
-
-        // POST: admin2/Mandate/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("InfinityMAP-web/rest/mandate/deleteMandate?mandateId=" + mandatId).Result;
+            List<HistoriqueAssignationMandatViewModel> historique = new List<HistoriqueAssignationMandatViewModel>();
+            foreach (var i in HistorriqueService.GetAll())
             {
-                // TODO: Add delete logic here
+                HistoriqueAssignationMandatViewModel historique2 = new HistoriqueAssignationMandatViewModel();
 
-                return RedirectToAction("Index");
+
+                historique2.etatMandat = i.etatMandat;
+                historique2.HeureSauvegarde = i.HeureSauvegarde;
+                historique2.action = i.action;
+                historique.Add(historique2);
             }
-            catch
-            {
-                return View();
-            }
+
+                return View(historique);
         }
+        //public ActionResult ExportExcel()
+        //{
+        //    ExcelPackage pck = new ExcelPackage();
+        //    ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Historique");
+
+        //    return result;
+        //}
+
+
+
+
     }
 }

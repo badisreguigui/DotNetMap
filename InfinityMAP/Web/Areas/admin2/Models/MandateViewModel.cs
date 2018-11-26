@@ -14,11 +14,16 @@ namespace Web.Areas.admin2.Models
         public Nullable<int> resource_id { get; set; }
         public float Facture { get; set; }
         public string NomMandat { get; set; }
+        public string etat { get; set; }
+      
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime date_end_mandate { get; set; }
 
-       
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime date_start_mandate { get; set; }
         public virtual HistoriqueAssignationMandatViewModel historiqueassignationmandat { get; set; }
         public virtual ResourceRequestViewModel resourcerequest { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,6 +28,6 @@ namespace Web.Areas.admin2.Models
         public int yearsOfExperience { get; set; }
         public string ipAdress { get; set; }
         public int holiday { get; set; }
-       
+        public virtual ICollection<mandate> mandates { get; set; }
     }
 }
